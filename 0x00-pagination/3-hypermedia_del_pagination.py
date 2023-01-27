@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Deletion-resilient hypermedia pagination
-"""
+"""Deletion-resilient hypermedia pagination"""
 import csv
 from typing import Dict, List
 
@@ -11,8 +10,6 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
-        """Initializes a new Server instance.
-        """
         self.__dataset = None
         self.__indexed_dataset = None
 
@@ -39,8 +36,20 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """Retrieves info about a page from a given index and with a
-        specified size.
+        """Retrieves a specific page of the dataset of popular baby names by
+        index.
+        Args:
+            index (int, optional): the index of the first item in the page to
+            retrieve.
+            If None, it defaults to the first item in the dataset.
+            page_size (int, optional): the number of items per page. Defaults
+            to 10.
+        Returns:
+            dict: A dictionary containing the following key-value pairs:
+                index (int): the current start index of the return page.
+                next_index (int): the next index to query with.
+                page_size (int): the current page size
+                data (List[List]): the actual page of the dataset
         """
         data = self.indexed_dataset()
         assert index is not None and index >= 0 and index <= max(data.keys())
